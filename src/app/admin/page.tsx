@@ -2,12 +2,12 @@
 
 import Layout from '@/components/Layout';
 import { useAuth } from '@/context/AuthContext';
-import { deleteMatch, fetchLeagues, fetchMatches, fetchTeams, updateMatch } from '@/lib/firebaseUtils';
+import { deleteMatch, fetchLeagues, fetchMatches, fetchTeams } from '@/lib/firebaseUtils';
 import { League, Match, Team } from '@/types';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FiCheck, FiEdit, FiPlus, FiTrash2, FiX } from 'react-icons/fi';
+import { FiCheck, FiEdit, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 export default function AdminPage() {
@@ -172,24 +172,6 @@ export default function AdminPage() {
     return league ? league.name : leagueId;
   };
 
-  // Helper function to handle match status update
-  const handleMatchStatusUpdate = async (matchId: string, status: 'upcoming' | 'ongoing' | 'completed') => {
-    try {
-      await updateMatch(matchId, { status });
-      
-      // Update local state
-      setMatches(prev => 
-        prev.map(match => 
-          match.id === matchId ? { ...match, status } : match
-        )
-      );
-      
-      toast.success('경기 상태가 업데이트 되었습니다.');
-    } catch (error) {
-      console.error('Error updating match status:', error);
-      toast.error('경기 상태 업데이트에 실패했습니다.');
-    }
-  };
 
   // Helper function to handle match deletion
   const handleDeleteMatch = async (matchId: string) => {
@@ -430,41 +412,9 @@ export default function AdminPage() {
                                     ? '진행 중' 
                                     : '종료'}
                                 </span>
-                                
-                                <div className="ml-2 flex space-x-1">
-                                  {match.status !== 'upcoming' && (
-                                    <button 
-                                      onClick={() => handleMatchStatusUpdate(match.id, 'upcoming')}
-                                      className="text-blue-600 hover:text-blue-800"
-                                      title="예정으로 변경"
-                                    >
-                                      <FiPlus size={14} />
-                                    </button>
-                                  )}
-                                  
-                                  {match.status !== 'ongoing' && (
-                                    <button 
-                                      onClick={() => handleMatchStatusUpdate(match.id, 'ongoing')}
-                                      className="text-green-600 hover:text-green-800"
-                                      title="진행 중으로 변경"
-                                    >
-                                      <FiCheck size={14} />
-                                    </button>
-                                  )}
-                                  
-                                  {match.status !== 'completed' && (
-                                    <button 
-                                      onClick={() => handleMatchStatusUpdate(match.id, 'completed')}
-                                      className="text-gray-600 hover:text-gray-800"
-                                      title="종료로 변경"
-                                    >
-                                      <FiX size={14} />
-                                    </button>
-                                  )}
-                                </div>
                               </div>
                             </td>
-                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 flex whitespace-nowrap text-right text-xs sm:text-sm font-medium">
                               <Link
                                 href={`/admin/matches/edit/${match.id}`}
                                 className="text-blue-600 hover:text-blue-900 mr-4"
