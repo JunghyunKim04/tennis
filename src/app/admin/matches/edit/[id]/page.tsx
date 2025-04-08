@@ -2,7 +2,7 @@
 
 import Layout from "@/components/Layout";
 import { useAuth } from "@/context/AuthContext";
-import { fetchMatchById, updateMatch } from "@/lib/firebaseUtils";
+import { fetchMatchById, updateMatch, fetchTeams, updateTeam, fetchMatches } from "@/lib/firebaseUtils";
 import { Match } from "@/types";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -67,21 +67,143 @@ export default function EditMatchPage() {
     fetchMatch();
   }, [id]);
 
+  // Function to update all matches with a team name change
+  const updateAllMatchesWithNewTeamName = async (oldTeamName: string, newTeamName: string) => {
+    console.log(`Updating all matches with team name change: ${oldTeamName} -> ${newTeamName}`);
+    
+    try {
+      // Track if we updated any teams
+      let teamsUpdated = false;
+      
+      // PART 1: UPDATE ALL MATCHES
+      const allMatches = await fetchMatches();
+      
+      // Find all matches that have the oldTeamName
+      console.log(`Searching for matches with team: "${oldTeamName}"`);
+      let matchesUpdated = 0;
+      
+      for (const matchToUpdate of allMatches) {
+        const updateData: { homeTeam?: string; awayTeam?: string } = {};
+        
+        if (matchToUpdate.homeTeam === oldTeamName) {
+          updateData.homeTeam = newTeamName;
+        }
+        
+        if (matchToUpdate.awayTeam === oldTeamName) {
+          updateData.awayTeam = newTeamName;
+        }
+        
+        // Only update if we found changes and it's not the current match
+        if (Object.keys(updateData).length > 0 && matchToUpdate.id !== id) {
+          console.log(`Updating match ${matchToUpdate.id} with new team name`);
+          await updateMatch(matchToUpdate.id, updateData);
+          matchesUpdated++;
+        }
+      }
+      
+      console.log(`Updated ${matchesUpdated} matches with the new team name`);
+      
+      // PART 2: UPDATE TEAM ENTITY
+      // Get all teams
+      const teams = await fetchTeams();
+      
+      // Method 1: Direct exact match
+      const exactMatchTeam = teams.find(team => team.name === oldTeamName);
+      
+      if (exactMatchTeam) {
+        console.log(`Found exact match for team "${oldTeamName}" with ID: ${exactMatchTeam.id}`);
+        await updateTeam(exactMatchTeam.id, { name: newTeamName });
+        teamsUpdated = true;
+        return true; // Successfully updated
+      }
+      
+      // Method 2: Find teams by case-insensitive exact match
+      const caseInsensitiveExactMatch = teams.find(
+        team => team.name.toLowerCase() === oldTeamName.toLowerCase()
+      );
+      
+      if (caseInsensitiveExactMatch) {
+        console.log(`Found case-insensitive exact match: "${caseInsensitiveExactMatch.name}" -> "${newTeamName}"`);
+        await updateTeam(caseInsensitiveExactMatch.id, { name: newTeamName });
+        teamsUpdated = true;
+        return true;
+      }
+      
+      // Method 3: Try substring matching if we didn't find an exact match
+      if (!teamsUpdated) {
+        console.log(`Trying substring matching for "${oldTeamName}"...`);
+        
+        // Find teams with names that contain the oldTeamName or vice versa
+        const substringMatches = teams.filter(team => 
+          team.name.includes(oldTeamName) || 
+          oldTeamName.includes(team.name));
+        
+        if (substringMatches.length > 0) {
+          console.log(`Found ${substringMatches.length} team(s) with substring match`);
+          
+          for (const match of substringMatches) {
+            console.log(`Updating team "${match.name}" to "${newTeamName}"`);
+            await updateTeam(match.id, { name: newTeamName });
+            teamsUpdated = true;
+          }
+          
+          if (teamsUpdated) return true;
+        }
+      }
+      
+      // Method 4: Last resort - case insensitive substring matching
+      if (!teamsUpdated) {
+        console.log(`Trying case-insensitive substring match for "${oldTeamName}"...`);
+        
+        for (const team of teams) {
+          // Check if either name includes the other, ignoring case
+          if (team.name.toLowerCase().includes(oldTeamName.toLowerCase()) || 
+              oldTeamName.toLowerCase().includes(team.name.toLowerCase())) {
+            console.log(`Found case-insensitive substring match: "${team.name}" -> "${newTeamName}"`);
+            await updateTeam(team.id, { name: newTeamName });
+            teamsUpdated = true;
+          }
+        }
+      }
+      
+      return teamsUpdated;
+    } catch (err) {
+      console.error("Error updating matches with new team name:", err);
+      return false;
+    }
+  };
+  
+  // Store original team names to track changes between edits
+  const [originalHomeTeam, setOriginalHomeTeam] = useState<string>("");
+  const [originalAwayTeam, setOriginalAwayTeam] = useState<string>("");
+  
+  // Update the original team names whenever the match data loads
+  useEffect(() => {
+    if (match) {
+      setOriginalHomeTeam(match.homeTeam);
+      setOriginalAwayTeam(match.awayTeam);
+    }
+  }, [match]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!match) return;
 
     setError(null);
     setIsSubmitting(true);
-    // TODO: Add form validation if needed
 
     try {
-      // --- Prepare Update Data ---
-      const updateData = {
+      // Track if team names changed from their original values
+      const homeTeamChanged = originalHomeTeam !== homeTeam;
+      const awayTeamChanged = originalAwayTeam !== awayTeam;
+      const teamsHaveChanged = homeTeamChanged || awayTeamChanged;
+      
+      console.log(`Team name changes: ${originalHomeTeam} -> ${homeTeam}, ${originalAwayTeam} -> ${awayTeam}`);
+      
+      // --- Prepare Update Data for non-team fields ---
+      const matchUpdateData = {
         homeScore,
         awayScore,
-        homeTeam,
-        awayTeam,
         court,
         status,
         date,
@@ -90,11 +212,46 @@ export default function EditMatchPage() {
         league,
       };
 
-      await updateMatch(id, updateData);
-      toast.success(
-        "경기 정보가 성공적으로 업데이트 되었습니다. 점수 변경 사항은 모든 페이지에 반영됩니다."
-      );
-      // Optional: Redirect or provide further feedback
+      // Process team name changes globally
+      let homeTeamUpdateSuccess = !homeTeamChanged; // true if no change needed
+      let awayTeamUpdateSuccess = !awayTeamChanged; // true if no change needed
+      
+      // Update home team name across all matches if changed
+      if (homeTeamChanged) {
+        homeTeamUpdateSuccess = await updateAllMatchesWithNewTeamName(originalHomeTeam, homeTeam);
+      }
+      
+      // Update away team name across all matches if changed
+      if (awayTeamChanged) {
+        awayTeamUpdateSuccess = await updateAllMatchesWithNewTeamName(originalAwayTeam, awayTeam);
+      }
+      
+      // After updating, store the new team names as the original ones for next edit
+      setOriginalHomeTeam(homeTeam);
+      setOriginalAwayTeam(awayTeam);
+      
+      // Update the current match with non-team fields
+      await updateMatch(id, matchUpdateData);
+      
+      // Force update current match team names (regardless of global success)
+      // This ensures the current match shows the correct team names even if global updates failed
+      if (teamsHaveChanged) {
+        await updateMatch(id, {
+          homeTeam,
+          awayTeam
+        });
+      }
+      
+      // Success message based on what happened
+      if (teamsHaveChanged) {
+        if (homeTeamUpdateSuccess && awayTeamUpdateSuccess) {
+          toast.success("경기 정보와 팀 이름이 전체적으로 업데이트 되었습니다.");
+        } else {
+          toast.warning("경기 정보가 업데이트 되었지만, 일부 팀 이름은 전체적으로 업데이트되지 않았습니다.");
+        }
+      } else {
+        toast.success("경기 정보가 성공적으로 업데이트 되었습니다. 점수 변경 사항은 모든 페이지에 반영됩니다.");
+      }
     } catch (err) {
       console.error("Error updating match:", err);
       setError("Failed to update match.");

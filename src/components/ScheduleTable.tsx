@@ -196,7 +196,7 @@ const ScheduleTable: React.FC<ScheduleTableProps> = ({ matches }) => {
                             </div>
                           )}
                           <div className="text-sm text-gray-500">
-                            {match.homeTeam} vs {match.awayTeam}
+                            {match.homeTeam} vs <br /> {match.awayTeam}
                           </div>
                           {match.status === "completed" && (
                             <div className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
