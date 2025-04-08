@@ -1,5 +1,4 @@
 import { Match } from "@/types";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface ScheduleTableProps {
@@ -8,7 +7,6 @@ interface ScheduleTableProps {
 }
 
 const ScheduleTable: React.FC<ScheduleTableProps> = ({ matches }) => {
-  const router = useRouter();
   const [currentTime, setCurrentTime] = useState<string>("");
   const [isMobile, setIsMobile] = useState(false);
 
@@ -189,20 +187,26 @@ const ScheduleTable: React.FC<ScheduleTableProps> = ({ matches }) => {
                     >
                       <div className="flex justify-between items-center">
                         <div className="font-medium">{match.court}</div>
-                        <div className="flex gap-2">
-                          {match.status === "completed" && (
-                            <div className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
-                              {match.homeScore}
-                            </div>
-                          )}
-                          <div className="text-sm text-gray-500">
-                            {match.homeTeam} vs <br /> {match.awayTeam}
+                        <div className="flex gap-2 flex-col">
+                          <div className="text-sm text-gray-500 justify-between bg-gray-100 rounded-md p-1 flex items-center">
+                            <span>{match.homeTeam}</span>
+                            {match.status === "completed" && (
+                              <span className=" inline-flex self-end items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
+                                {match.homeScore}
+                              </span>
+                            )}
                           </div>
-                          {match.status === "completed" && (
-                            <div className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
-                              {match.awayScore}
-                            </div>
-                          )}
+                          {/* <div className="text-sm text-gray-500 text-center mx-auto flex items-center">
+                            vs
+                          </div> */}
+                          <div className="text-sm text-gray-500 bg-gray-100 rounded-md p-1 flex items-center">
+                            {match.awayTeam}
+                            {match.status === "completed" && (
+                              <span className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
+                                {match.awayScore}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -315,12 +319,9 @@ const ScheduleTable: React.FC<ScheduleTableProps> = ({ matches }) => {
                       key={`${startTime}-${court}`}
                       className={`border ${
                         isCurrentSlot ? "border-blue-500" : "border-gray-200"
-                      } p-2 text-center cursor-pointer ${getLeagueClass(
+                      } p-2 text-center select-none ${getLeagueClass(
                         match.league
                       )}`}
-                      onClick={() =>
-                        match.id && router.push(`/matches/${match.id}`)
-                      }
                     >
                       <div className="flex items-center justify-center gap-2">
                         {match.status === "completed" && (
