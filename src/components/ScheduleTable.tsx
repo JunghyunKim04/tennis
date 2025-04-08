@@ -189,14 +189,21 @@ const ScheduleTable: React.FC<ScheduleTableProps> = ({ matches }) => {
                     >
                       <div className="flex justify-between items-center">
                         <div className="font-medium">{match.court}</div>
-                        <div className="text-sm text-gray-500">
-                          {match.homeTeam} vs {match.awayTeam}
-                        </div>
-                        {match.homeScore > 0 && (
-                          <div className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
-                            {match.homeScore}
+                        <div className="flex gap-2">
+                          {match.status === "completed" && (
+                            <div className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
+                              {match.homeScore}
+                            </div>
+                          )}
+                          <div className="text-sm text-gray-500">
+                            {match.homeTeam} vs {match.awayTeam}
                           </div>
-                        )}
+                          {match.status === "completed" && (
+                            <div className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
+                              {match.awayScore}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
