@@ -315,13 +315,18 @@ const ScheduleTable: React.FC<ScheduleTableProps> = ({ matches }) => {
                         match.id && router.push(`/matches/${match.id}`)
                       }
                     >
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center justify-center gap-2">
+                        {match.status === "completed" && (
+                          <span className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
+                            {match.homeScore}
+                          </span>
+                        )}
                         <span>
                           {match.homeTeam} vs {match.awayTeam}
                         </span>
-                        {match.homeScore > 0 && (
+                        {match.status === "completed" && (
                           <span className="ml-2 inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white text-xs font-medium">
-                            {match.homeScore}
+                            {match.awayScore}
                           </span>
                         )}
                       </div>
