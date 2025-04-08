@@ -42,6 +42,7 @@ const Header: React.FC = () => {
     { href: "/schedule", label: "경기 일정", icon: <FiCalendar /> },
     { href: "/standings", label: "순위표", icon: <FiTrendingUp /> },
     { href: "/rules", label: "경기 규칙", icon: <BsExclamationLg /> },
+    { href: "/admin", label: "관리자", icon: <BsExclamationLg /> },
   ];
 
   if (userData?.isAdmin) {
