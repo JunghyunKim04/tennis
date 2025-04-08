@@ -210,7 +210,7 @@ export default function AdminPage() {
   return (
     <Layout>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-6">관리자 대시보드</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">관리자 대시보드</h1>
         
         {loading ? (
           <div className="h-64 flex items-center justify-center">
@@ -222,11 +222,11 @@ export default function AdminPage() {
         ) : (
           <>
             {/* Tabs */}
-            <div className="border-b border-gray-200 mb-6">
-              <nav className="flex -mb-px">
+            <div className="border-b border-gray-200 mb-6 overflow-x-auto">
+              <nav className="flex -mb-px min-w-max">
                 <button
                   onClick={() => setActiveTab('matches')}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 ${
+                  className={`py-3 sm:py-4 px-3 sm:px-6 font-medium text-sm border-b-2 ${
                     activeTab === 'matches'
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -236,7 +236,7 @@ export default function AdminPage() {
                 </button>
                 <button
                   onClick={() => setActiveTab('teams')}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 ${
+                  className={`py-3 sm:py-4 px-3 sm:px-6 font-medium text-sm border-b-2 ${
                     activeTab === 'teams'
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -246,7 +246,7 @@ export default function AdminPage() {
                 </button>
                 <button
                   onClick={() => setActiveTab('leagues')}
-                  className={`py-4 px-6 font-medium text-sm border-b-2 ${
+                  className={`py-3 sm:py-4 px-3 sm:px-6 font-medium text-sm border-b-2 ${
                     activeTab === 'leagues'
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -258,22 +258,22 @@ export default function AdminPage() {
             </div>
             
             {/* Tab Content */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-3 sm:p-6">
               {/* Matches Tab */}
               {activeTab === 'matches' && (
                 <div>
-                  <div className="flex justify-between items-center mb-4">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
                     <h2 className="text-xl font-semibold">경기 관리</h2>
-                    <div className="flex space-x-2">
+                    <div className="flex flex-wrap gap-2">
                       <Link
                         href="/admin/reset-matches"
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center"
+                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 text-sm sm:px-4 sm:py-2 rounded-md flex items-center"
                       >
                         <FiTrash2 className="mr-1" /> 스케줄 리셋
                       </Link>
                       <Link
                         href="/admin/matches/new"
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center"
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 text-sm sm:px-4 sm:py-2 rounded-md flex items-center"
                       >
                         <FiPlus className="mr-1" /> 새 경기 등록
                       </Link>
@@ -281,14 +281,14 @@ export default function AdminPage() {
                   </div>
                   
                   {/* Add filters */}
-                  <div className="mb-6 flex flex-wrap gap-4">
+                  <div className="mb-6 flex flex-wrap gap-2 sm:gap-4">
                     <div className="flex items-center">
                       <label htmlFor="statusFilter" className="mr-2 text-sm font-medium text-gray-700">상태:</label>
                       <select
                         id="statusFilter"
                         value={matchFilters.status}
                         onChange={(e) => handleFilterChange('status', e.target.value)}
-                        className="block w-32 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                        className="block w-24 sm:w-32 pl-2 pr-6 sm:pl-3 sm:pr-10 py-1 sm:py-2 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
                       >
                         <option value="all">전체</option>
                         <option value="upcoming">예정</option>
@@ -303,7 +303,7 @@ export default function AdminPage() {
                         id="leagueFilter"
                         value={matchFilters.league}
                         onChange={(e) => handleFilterChange('league', e.target.value)}
-                        className="block w-32 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                        className="block w-24 sm:w-32 pl-2 pr-6 sm:pl-3 sm:pr-10 py-1 sm:py-2 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
                       >
                         <option value="all">전체</option>
                         {getUniqueLeagues().filter(l => l !== 'all').map(league => (
@@ -322,7 +322,7 @@ export default function AdminPage() {
                         id="courtFilter"
                         value={matchFilters.court}
                         onChange={(e) => handleFilterChange('court', e.target.value)}
-                        className="block w-32 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                        className="block w-24 sm:w-32 pl-2 pr-6 sm:pl-3 sm:pr-10 py-1 sm:py-2 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
                       >
                         <option value="all">전체</option>
                         {uniqueCourts().filter(c => c !== 'all').map(court => (
@@ -339,8 +339,8 @@ export default function AdminPage() {
                     </button>
                   </div>
                   
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
+                  <div className="overflow-x-auto -mx-3 sm:mx-0">
+                    <table className="min-w-full divide-y divide-gray-200 table-fixed sm:table-auto">
                       <thead className="bg-gray-50">
                         <tr>
                           <th 
@@ -361,7 +361,7 @@ export default function AdminPage() {
                           >
                             어웨이팀 {getSortIndicator('awayTeam')}
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             점수
                           </th>
                           <th 
@@ -393,27 +393,27 @@ export default function AdminPage() {
                             key={match.id} 
                             className={`hover:bg-gray-100 ${getLeagueBackgroundColor(match.league)}`}
                           >
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {match.startTime.split('T')[1]?.substring(0, 5) || match.startTime}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {match.homeTeam}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {match.awayTeam}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {match.homeScore} - {match.awayScore}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               코트 {match.court}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {match.league === 'menA' ? 'Men A' : 
                                match.league === 'menB' ? 'Men B' : 
                                match.league === 'beginners' ? 'Beginners' : match.league}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               <div className="flex items-center">
                                 <span 
                                   className={`px-2 py-1 text-xs rounded-full ${
@@ -464,7 +464,7 @@ export default function AdminPage() {
                                 </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
                               <Link
                                 href={`/admin/matches/edit/${match.id}`}
                                 className="text-blue-600 hover:text-blue-900 mr-4"
@@ -487,7 +487,7 @@ export default function AdminPage() {
                         
                         {filteredMatches.length === 0 && (
                           <tr>
-                            <td colSpan={8} className="px-6 py-10 text-center text-gray-500">
+                            <td colSpan={8} className="px-2 sm:px-6 py-6 sm:py-10 text-center text-gray-500 text-xs sm:text-sm">
                               등록된 경기가 없습니다.
                             </td>
                           </tr>
@@ -501,44 +501,44 @@ export default function AdminPage() {
               {/* Teams Tab */}
               {activeTab === 'teams' && (
                 <div>
-                  <div className="flex justify-between items-center mb-4">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
                     <h2 className="text-xl font-semibold">팀 관리</h2>
-                    <div className="flex space-x-2">
+                    <div className="flex flex-wrap gap-2">
                       <Link
                         href="/admin/reset-team-stats"
-                        className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md flex items-center"
+                        className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-2 text-sm sm:px-4 sm:py-2 rounded-md flex items-center"
                       >
                         <FiCheck className="mr-1" /> 팀 통계 재계산
                       </Link>
                       <Link
                         href="/admin/teams/new"
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center"
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 text-sm sm:px-4 sm:py-2 rounded-md flex items-center"
                       >
                         <FiPlus className="mr-1" /> 새 팀 등록
                       </Link>
                     </div>
                   </div>
                   
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
+                  <div className="overflow-x-auto -mx-3 sm:mx-0">
+                    <table className="min-w-full divide-y divide-gray-200 table-fixed sm:table-auto">
                       <thead className="bg-gray-50">
                         <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             팀 이름
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             선수
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             리그
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             승리
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             패배
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             승점
                           </th>
                           <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -555,19 +555,19 @@ export default function AdminPage() {
                             <td className="px-6 py-4">
                               {team.players.join(', ')}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {getLeagueName(team.leagueId)}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {team.wins}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {team.losses}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {team.points}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
                               <Link
                                 href={`/admin/teams/edit/${team.id}`}
                                 className="text-blue-600 hover:text-blue-900 mr-4"
@@ -591,7 +591,7 @@ export default function AdminPage() {
                         
                         {teams.length === 0 && (
                           <tr>
-                            <td colSpan={7} className="px-6 py-10 text-center text-gray-500">
+                            <td colSpan={7} className="px-2 sm:px-6 py-6 sm:py-10 text-center text-gray-500 text-xs sm:text-sm">
                               등록된 팀이 없습니다.
                             </td>
                           </tr>
@@ -605,27 +605,27 @@ export default function AdminPage() {
               {/* Leagues Tab */}
               {activeTab === 'leagues' && (
                 <div>
-                  <div className="flex justify-between items-center mb-4">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
                     <h2 className="text-xl font-semibold">리그 관리</h2>
                     <Link
                       href="/admin/leagues/new"
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center"
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 text-sm sm:px-4 sm:py-2 rounded-md flex items-center self-start sm:self-auto"
                     >
                       <FiPlus className="mr-1" /> 새 리그 등록
                     </Link>
                   </div>
                   
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
+                  <div className="overflow-x-auto -mx-3 sm:mx-0">
+                    <table className="min-w-full divide-y divide-gray-200 table-fixed sm:table-auto">
                       <thead className="bg-gray-50">
                         <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             리그 이름
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             설명
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             팀 수
                           </th>
                           <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -642,10 +642,10 @@ export default function AdminPage() {
                             <td className="px-6 py-4">
                               {league.description || '-'}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                               {league.teams.length}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
                               <Link
                                 href={`/admin/leagues/edit/${league.id}`}
                                 className="text-blue-600 hover:text-blue-900 mr-4"
