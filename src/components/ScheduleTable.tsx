@@ -71,7 +71,8 @@ const ScheduleTable: React.FC<ScheduleTableProps> = ({ matches }) => {
   ];
 
   // Group courts
-  const courts = ["1코트", "2코트", "3코트", "4코트", "5코트", "6코트"];
+  const courts = isMobile ? ["1코트", "2코트", "3코트", "4코트", "5코트", "6코트"] : ["6코트", "4코트", "2코트", "1코트", "3코트", "5코트"];
+  
 
   // Build a schedule grid
   const scheduleGrid: { [time: string]: { [court: string]: Match | null } } =
