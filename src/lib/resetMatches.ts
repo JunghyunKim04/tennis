@@ -45,10 +45,10 @@ export async function resetMatchesDatabase(): Promise<boolean> {
     const today = "2025-04-13"; // Use April 13, 2024 for all matches
 
     const matchesData: Omit<Match, "id">[] = [
-      // 1코트 Matches
+      // 1코트 Matches -> 6코트
       // 9:00-9:40
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "A1",
         awayTeam: "A2",
         homeScore: 0,
@@ -61,7 +61,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 9:40-10:20
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "A1",
         awayTeam: "A3",
         homeScore: 0,
@@ -74,7 +74,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 10:20-11:00
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "A2",
         awayTeam: "A5",
         homeScore: 0,
@@ -87,7 +87,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 11:00-11:40
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "A1",
         awayTeam: "A4",
         homeScore: 0,
@@ -100,7 +100,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 12:20-13:00
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "A1",
         awayTeam: "A5",
         homeScore: 0,
@@ -113,7 +113,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:00-13:40
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "A1",
         awayTeam: "A6",
         homeScore: 0,
@@ -126,7 +126,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:40-14:20
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "A3",
         awayTeam: "A6",
         homeScore: 0,
@@ -139,7 +139,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 15:00-15:40
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "AW1",
         awayTeam: "AW2",
         homeScore: 0,
@@ -152,7 +152,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 15:40-16:20
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "AW1",
         awayTeam: "AW2",
         homeScore: 0,
@@ -165,7 +165,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 16:20-17:00
       {
-        court: "1코트",
+        court: "6코트",
         homeTeam: "AW1",
         awayTeam: "AW2",
         homeScore: 0,
@@ -177,10 +177,10 @@ export async function resetMatchesDatabase(): Promise<boolean> {
         date: today,
       },
 
-      // 2코트 Matches
+      // 2코트 Matches -> 4코트
       // 9:00-9:40
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "A3",
         awayTeam: "A4",
         homeScore: 0,
@@ -193,7 +193,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 9:40-10:20
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "B1",
         awayTeam: "B3",
         homeScore: 0,
@@ -206,7 +206,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 10:20-11:00
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "A4",
         awayTeam: "A6",
         homeScore: 0,
@@ -219,7 +219,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 11:00-11:40
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "A2",
         awayTeam: "A6",
         homeScore: 0,
@@ -232,7 +232,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 12:20-13:00
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "A3",
         awayTeam: "A2",
         homeScore: 0,
@@ -245,7 +245,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:00-13:40
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "A2",
         awayTeam: "A4",
         homeScore: 0,
@@ -258,7 +258,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:40-14:20
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "A4",
         awayTeam: "A5",
         homeScore: 0,
@@ -271,7 +271,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 15:00-15:40
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "BW1",
         awayTeam: "BW2",
         homeScore: 0,
@@ -284,7 +284,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 15:40-16:20
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "BW1",
         awayTeam: "BW2",
         homeScore: 0,
@@ -297,7 +297,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 16:20-17:00
       {
-        court: "2코트",
+        court: "4코트",
         homeTeam: "BW1",
         awayTeam: "BW2",
         homeScore: 0,
@@ -309,10 +309,10 @@ export async function resetMatchesDatabase(): Promise<boolean> {
         date: today,
       },
 
-      // 3코트 Matches
+      // 3코트 Matches -> 2코트
       // 9:00-9:40
       {
-        court: "3코트",
+        court: "2코트",
         homeTeam: "A5",
         awayTeam: "A6",
         homeScore: 0,
@@ -325,7 +325,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 9:40-10:20
       {
-        court: "3코트",
+        court: "2코트",
         homeTeam: "B5",
         awayTeam: "B6",
         homeScore: 0,
@@ -338,7 +338,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 10:20-11:00
       {
-        court: "3코트",
+        court: "2코트",
         homeTeam: "B3",
         awayTeam: "B5",
         homeScore: 0,
@@ -351,7 +351,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 11:00-11:40
       {
-        court: "3코트",
+        court: "2코트",
         homeTeam: "A3",
         awayTeam: "A5",
         homeScore: 0,
@@ -364,7 +364,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 12:20-13:00
       {
-        court: "3코트",
+        court: "2코트",
         homeTeam: "B6",
         awayTeam: "B3",
         homeScore: 0,
@@ -377,7 +377,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:00-13:40
       {
-        court: "3코트",
+        court: "2코트",
         homeTeam: "B2",
         awayTeam: "B3",
         homeScore: 0,
@@ -390,7 +390,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:40-14:20
       {
-        court: "3코트",
+        court: "2코트",
         homeTeam: "B1",
         awayTeam: "B6",
         homeScore: 0,
@@ -402,10 +402,10 @@ export async function resetMatchesDatabase(): Promise<boolean> {
         date: today,
       },
 
-      // 4코트 Matches
+      // 4코트 Matches -> 1코트
       // 9:00-9:40
       {
-        court: "4코트",
+        court: "1코트",
         homeTeam: "B1",
         awayTeam: "B2",
         homeScore: 0,
@@ -418,7 +418,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 9:40-10:20
       {
-        court: "4코트",
+        court: "1코트",
         homeTeam: "B2",
         awayTeam: "B4",
         homeScore: 0,
@@ -431,7 +431,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 10:20-11:00
       {
-        court: "4코트",
+        court: "1코트",
         homeTeam: "B4",
         awayTeam: "B6",
         homeScore: 0,
@@ -444,7 +444,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 11:00-11:40
       {
-        court: "4코트",
+        court: "1코트",
         homeTeam: "B1",
         awayTeam: "B5",
         homeScore: 0,
@@ -457,7 +457,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 12:20-13:00
       {
-        court: "4코트",
+        court: "1코트",
         homeTeam: "B1",
         awayTeam: "B4",
         homeScore: 0,
@@ -470,7 +470,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:00-13:40
       {
-        court: "4코트",
+        court: "1코트",
         homeTeam: "B4",
         awayTeam: "B5",
         homeScore: 0,
@@ -483,7 +483,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:40-14:20
       {
-        court: "4코트",
+        court: "1코트",
         homeTeam: "B2",
         awayTeam: "B5",
         homeScore: 0,
@@ -496,7 +496,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 14:20-15:00
       {
-        court: "6코트",
+        court: "5코트",
         homeTeam: "NL1",
         awayTeam: "NL2",
         homeScore: 0,
@@ -508,10 +508,10 @@ export async function resetMatchesDatabase(): Promise<boolean> {
         date: today,
       },
 
-      // 5코트 Matches
+      // 5코트 Matches -> 3코트
       // 9:00-9:40
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "B3",
         awayTeam: "B4",
         homeScore: 0,
@@ -524,7 +524,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 9:40-10:20
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "N1",
         awayTeam: "N3",
         homeScore: 0,
@@ -537,7 +537,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 10:20-11:00
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "N2",
         awayTeam: "N4",
         homeScore: 0,
@@ -550,7 +550,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 11:00-11:40
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "B2",
         awayTeam: "B6",
         homeScore: 0,
@@ -563,7 +563,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 12:20-13:00
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "N1",
         awayTeam: "N5",
         homeScore: 0,
@@ -576,7 +576,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:00-13:40
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "N2",
         awayTeam: "N5",
         homeScore: 0,
@@ -589,7 +589,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:40-14:20
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "NW1",
         awayTeam: "NW2",
         homeScore: 0,
@@ -602,7 +602,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 14:20-15:00
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "NW1",
         awayTeam: "NW3",
         homeScore: 0,
@@ -615,7 +615,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 15:00-15:40
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "NW2",
         awayTeam: "NW3",
         homeScore: 0,
@@ -628,7 +628,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 16:20-17:00
       {
-        court: "5코트",
+        court: "3코트",
         homeTeam: "NWW1",
         awayTeam: "NWW2",
         homeScore: 0,
@@ -640,10 +640,10 @@ export async function resetMatchesDatabase(): Promise<boolean> {
         date: today,
       },
 
-      // 6코트 Matches
+      // 6코트 Matches -> 5코트
       // 9:00-9:40
       {
-        court: "6코트",
+        court: "5코트",
         homeTeam: "N1",
         awayTeam: "N2",
         homeScore: 0,
@@ -656,7 +656,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 9:40-10:20
       {
-        court: "6코트",
+        court: "5코트",
         homeTeam: "N4",
         awayTeam: "N5",
         homeScore: 0,
@@ -669,7 +669,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 10:20-11:00
       {
-        court: "6코트",
+        court: "5코트",
         homeTeam: "N3",
         awayTeam: "N5",
         homeScore: 0,
@@ -682,7 +682,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 11:00-11:40
       {
-        court: "6코트",
+        court: "5코트",
         homeTeam: "N1",
         awayTeam: "N4",
         homeScore: 0,
@@ -695,7 +695,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 12:20-13:00
       {
-        court: "6코트",
+        court: "5코트",
         homeTeam: "N2",
         awayTeam: "N3",
         homeScore: 0,
@@ -708,7 +708,7 @@ export async function resetMatchesDatabase(): Promise<boolean> {
       },
       // 13:00-13:40
       {
-        court: "6코트",
+        court: "5코트",
         homeTeam: "N3",
         awayTeam: "N4",
         homeScore: 0,
